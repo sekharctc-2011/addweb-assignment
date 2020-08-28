@@ -1,0 +1,59 @@
+<?php
+
+/**
+ * @file
+ * Contains myentity.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function myentity_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the myentity module.
+    case 'help.page.myentity':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('My Awesome Module') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function myentity_theme() {
+  $theme = [];
+  $theme['myentity'] = [
+    'render element' => 'elements',
+    'file' => 'myentity.page.inc',
+    'template' => 'myentity',
+  ];
+  $theme['myentity_content_add_list'] = [
+    'render element' => 'content',
+    'variables' => ['content' => NULL],
+    'file' => 'myentity.page.inc',
+  ];
+  return $theme;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function myentity_theme_suggestions_myentity(array $variables) {
+  $suggestions = [];
+  $entity = $variables['elements']['#myentity'];
+  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+
+  $suggestions[] = 'myentity__' . $sanitized_view_mode;
+  $suggestions[] = 'myentity__' . $entity->bundle();
+  $suggestions[] = 'myentity__' . $entity->bundle() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'myentity__' . $entity->id();
+  $suggestions[] = 'myentity__' . $entity->id() . '__' . $sanitized_view_mode;
+  return $suggestions;
+}

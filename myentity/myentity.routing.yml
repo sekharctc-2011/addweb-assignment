@@ -1,0 +1,25 @@
+myentity.eventsmanager:
+  path: '/admin/config/myentity/eventsmanager'
+  defaults:
+    _form: '\Drupal\myentity\Form\Eventsmanager'
+    _title: 'Eventsmanager'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE
+
+myentity.display_table_controller_display:
+  path: '/myentity/eventlist'
+  defaults:
+    _controller: '\Drupal\myentity\Controller\DisplayTableController::display'
+    _title: 'display'
+  requirements:
+    _permission: 'access administration pages'
+
+myentity.delete_form:
+  path: '/myentity/form/delete/{cid}'
+  defaults:
+    _form: '\Drupal\myentity\Form\DeletemyEntity'
+    _title: 'DeleteForm'
+  requirements:
+    _permission: 'access administration pages'

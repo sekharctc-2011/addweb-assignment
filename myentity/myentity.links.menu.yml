@@ -1,0 +1,34 @@
+
+# Myentity menu items definition
+entity.myentity.collection:
+  title: 'Myentity list'
+  route_name: entity.myentity.collection
+  description: 'List Myentity entities'
+  parent: system.admin_structure
+  weight: 100
+
+
+# Myentity type menu items definition
+entity.myentity_type.collection:
+  title: 'Myentity type'
+  route_name: entity.myentity_type.collection
+  description: 'List Myentity type (bundles)'
+  parent: system.admin_structure
+  weight: 99
+
+#Config form
+myentity.eventsmanager:
+  title: 'Events manager'
+  route_name: myentity.eventsmanager
+  description: 'Custom events manager'
+  parent: system.admin_config_system
+  weight: 99
+
+#List view entity data
+myentity.listeventsmanager:
+  title: 'Events manager List'
+  route_name: myentity.display_table_controller_display
+  description: 'Events manager list'
+  parent: system.admin_config_system
+  weight: 99
+

@@ -1,0 +1,33 @@
+add myentity entities:
+  title: 'Create new Myentity entities'
+
+administer myentity entities:
+  title: 'Administer Myentity entities'
+  description: 'Allow to access the administration form to configure Myentity entities.'
+  restrict access: true
+
+delete myentity entities:
+  title: 'Delete Myentity entities'
+
+edit myentity entities:
+  title: 'Edit Myentity entities'
+
+view published myentity entities:
+  title: 'View published Myentity entities'
+
+view unpublished myentity entities:
+  title: 'View unpublished Myentity entities'
+
+view all myentity revisions:
+  title: 'View all Myentity revisions'
+
+revert all myentity revisions:
+  title: 'Revert all Myentity revisions'
+  description: 'Role requires permission <em>view Myentity revisions</em> and <em>edit rights</em> for myentity entities in question or <em>administer myentity entities</em>.'
+
+delete all myentity revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view Myentity revisions</em> and <em>delete rights</em> for myentity entities in question or <em>administer myentity entities</em>.'
+
+permission_callbacks:
+  - \Drupal\myentity\MyentityPermissions::generatePermissions

@@ -1,0 +1,10 @@
+entity.myentity.add_form:
+  route_name: entity.myentity.add_page
+  title: 'Add Myentity'
+  appears_on:
+    - entity.myentity.collection
+entity.myentity_type.add_form:
+  route_name: entity.myentity_type.add_form
+  title: 'Add Myentity type'
+  appears_on:
+    - entity.myentity_type.collection
