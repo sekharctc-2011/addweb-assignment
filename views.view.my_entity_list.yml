@@ -5,7 +5,6 @@ dependencies:
   config:
     - myentity.myentity_type.my_evnt_entity
   module:
-    - datetime
     - myentity
     - text
 id: my_entity_list
@@ -244,10 +243,11 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: datetime_default
+          type: timestamp
           settings:
-            timezone_override: ''
-            format_type: medium
+            date_format: html_date
+            custom_date_format: ''
+            timezone: ''
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -310,10 +310,11 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: datetime_default
+          type: timestamp
           settings:
-            timezone_override: ''
-            format_type: medium
+            date_format: html_date
+            custom_date_format: ''
+            timezone: ''
           group_column: value
           group_columns: {  }
           group_rows: true

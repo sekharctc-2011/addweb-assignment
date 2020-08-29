@@ -215,7 +215,7 @@ class Myentity extends EditorialContentEntityBase implements MyentityInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setRequired(TRUE);
 
-    $fields['start_date'] = BaseFieldDefinition::create('datetime')
+    $fields['start_date'] = BaseFieldDefinition::create('timestamp')
       ->setLabel(t('Start Date'))
       ->setDescription(t('Start date of the event'))
       ->setRevisionable(TRUE)
@@ -233,7 +233,7 @@ class Myentity extends EditorialContentEntityBase implements MyentityInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setRequired(TRUE);
 
-    $fields['end_date'] = BaseFieldDefinition::create('datetime')
+    $fields['end_date'] = BaseFieldDefinition::create('timestamp')
       ->setLabel(t('End Date'))
       ->setDescription(t('End date of the event'))
       ->setRevisionable(TRUE)

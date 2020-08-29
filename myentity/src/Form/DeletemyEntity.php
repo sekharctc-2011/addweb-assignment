@@ -22,7 +22,7 @@ class DeletemyEntity extends ConfirmFormBase {
   }
 
   public $cid;
-  public function getQuestion() { 
+  public function getQuestion() {
     return t('Do you want to delete %cid?', array('%cid' => $this->cid));
   }
  public function getCancelUrl() {
@@ -65,14 +65,11 @@ public function getDescription() {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    $entity = \Drupal::entityTypeManager()->getStorage('myentity')->load($this->id);
+	  $entity->delete();
 
-  	$entity = \Drupal::entityTypeManager()->getStorage('myentity')->load($this->id);
-	$entity->delete();
+	  \Drupal::messenger()->addmessage(t('entity deleted.'));
 
-	\Drupal::messenger()->addmessage(t('entity deleted.'));
-
-	$form_state->setRedirect('myentity.eventsmanager');
-
-      
+	  $form_state->setRedirect('myentity.eventsmanager');
   }
 }

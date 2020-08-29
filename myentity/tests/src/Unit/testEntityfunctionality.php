@@ -13,7 +13,7 @@ class testEntityfunctionality extends UnitTestCase {
 
 public function testTitleValidation()
 {
-	$titleTest = new Eventsmanager();
+	$titleTest = new Eventsmanager(FormStateInterface $form_state);
 	$titleVals = $titleTest->validate_title('abcd'); //positive Test case
 	$this->assertEquals($titleVals,true);
 	$titleVals2 = $titleTest->validate_title(''); //Negetive test case
@@ -25,7 +25,7 @@ public function testTitleValidation()
 
 public function testvenueValidation()
 {
-	$titleTest = new Eventsmanager();
+	$titleTest = new Eventsmanager(FormStateInterface $form_state);
 	$titleVals = $titleTest->validate_venue('abcd'); //positive Test case
 	$this->assertEquals($titleVals,true);
 	$titleVals2 = $titleTest->validate_venue(''); //Negetive test case

@@ -24,11 +24,3 @@ myentity.eventsmanager:
   parent: system.admin_config_system
   weight: 99
 
-#List view entity data
-myentity.listeventsmanager:
-  title: 'Events manager List'
-  route_name: myentity.display_table_controller_display
-  description: 'Events manager list'
-  parent: system.admin_config_system
-  weight: 99
-

@@ -4,7 +4,8 @@ namespace Drupal\myentity\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-
+use Drupal\Core\Url;
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\node\Entity\Node;
 
 use Drupal\Core\Database\Database;
@@ -46,8 +47,12 @@ class Eventsmanager extends ConfigFormBase {
           ->fields('m')
           ->execute()
           ->fetchAssoc();
+
+
     }
-    
+    //$fdate = date('Y-m-d', $record['start_date']);
+    //$fdate = format_date($record['start_date'], 'custom', 'd/m/Y');
+
     $form['title'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Title'),
@@ -62,14 +67,14 @@ class Eventsmanager extends ConfigFormBase {
       '#title' => $this->t('Start Date'),
       '#description' => $this->t('Start date of the events'),
       '#required'=> TRUE,
-      '#default_value' => (isset($record['start_date']) && isset($_GET['num'])) ? $record['start_date']:'',
+      '#default_value' => (isset($record['start_date']) && isset($_GET['num'])) ? date('Y-m-d', $record['start_date']):'',
     ];
     $form['end_date'] = [
       '#type' => 'date',
       '#title' => $this->t('End Date'),
       '#description' => $this->t('End date of the events'),
       '#required'=> TRUE,
-      '#default_value' => (isset($record['end_date']) && isset($_GET['num'])) ? $record['end_date']:'',
+      '#default_value' => (isset($record['end_date']) && isset($_GET['num'])) ? date('Y-m-d', $record['end_date']):'',
     ];
     $form['venue'] = [
       '#type' => 'textfield',
@@ -156,12 +161,7 @@ class Eventsmanager extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     parent::submitForm($form, $form_state);
-    /*
-        $this->config('myassignment.eventsmanager')
-          ->set('title', $form_state->getValue('title'))
-          ->set('start_date', $form_state->getValue('start_date'))
-          ->save();
-    */
+
     $title = $form_state->getValue('title');
     $start_date = $form_state->getValue('start_date');
     $end_date = $form_state->getValue('end_date');
@@ -170,23 +170,22 @@ class Eventsmanager extends ConfigFormBase {
 
     //check & update
     if (isset($_GET['num'])) {
-        
-        $field = array(
-              'event_title'   => $title,
-              'start_date' =>  $start_date,
-              'end_date' =>  $end_date,
-              'venue' => $venue,
-              'description__value' => $description,
-        );
 
-        $db = Database::getConnection();
+      $path = '/my-entity-list';
+      $url = Url::fromUserInput($path);
 
-        $db->update('myentity_field_data')
-          ->fields($field)
-          ->condition('id', $_GET['num'])
-          ->execute();
+      $entity = \Drupal::entityTypeManager()->getStorage("myentity")->load($_GET['num']);
+      //$data = $entity->start_date->getValue();
+      //print_r($data);
+      $entity->event_title[0]->value = $title;
+      $entity->start_date[0]->value = strtotime($start_date);
+      $entity->end_date[0]->value = strtotime($end_date);
+      $entity->venue[0]->value = $venue;
+      $entity->description[0]->value = $description;
+      $entity->save();
 
-         \Drupal::messenger()->addmessage(t('Record Successfully updated'));
+      \Drupal::messenger()->addmessage(t('Record Successfully updated'));
+      $form_state->setRedirectUrl($url);
 
       }
       else{
@@ -198,8 +197,8 @@ class Eventsmanager extends ConfigFormBase {
             'type' => 'my_evnt_entity',
             'title'=>$title,
             'event_title' => $title,
-            'start_date'=> $start_date,
-            'end_date'=>$end_date,
+            'start_date'=> strtotime($start_date),
+            'end_date'=>strtotime($end_date),
             'venue'=>$venue,
             'description'=>$description,
 
@@ -211,7 +210,7 @@ class Eventsmanager extends ConfigFormBase {
       \Drupal::messenger()->addmessage(t('New entity created.'));
 
       }
-    
+
 
   }
 
