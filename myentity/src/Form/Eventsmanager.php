@@ -15,6 +15,11 @@ use Drupal\Core\Database\Database;
  */
 class Eventsmanager extends ConfigFormBase {
 
+  public function __construct() {
+      
+      
+    }
+
   /**
    * {@inheritdoc}
    */
