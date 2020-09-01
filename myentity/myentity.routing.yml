@@ -23,3 +23,11 @@ myentity.delete_form:
     _title: 'DeleteForm'
   requirements:
     _permission: 'access administration pages'
+    
+myentity.myentity_table_view:
+  path: '/myentity/form/myentity_table_view'
+  defaults:
+    _form: '\Drupal\myentity\Form\MyentityTableView'
+    _title: 'MyentityTableView'
+  requirements:
+    _permission: 'access administration pages'
