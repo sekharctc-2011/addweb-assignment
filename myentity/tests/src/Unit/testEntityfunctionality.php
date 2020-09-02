@@ -6,6 +6,8 @@ use Drupal\Tests\UnitTestCase;
 //use PHPUnit\Framework\TestCase;
 use Drupal\myentity\Form\Eventsmanager;
 
+use Drupal\Core\Url;
+
 
 
 class testEntityfunctionality extends UnitTestCase {
@@ -41,6 +43,7 @@ class testEntityfunctionality extends UnitTestCase {
 		$this->assertEquals($titleVals3,false);
 	}
 
+	
 	public function tearDown()
 	{
 		unset($this->unit);

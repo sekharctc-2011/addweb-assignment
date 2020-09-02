@@ -1,11 +1,11 @@
 
 # Myentity menu items definition
-entity.myentity.collection:
-  title: 'Myentity list'
-  route_name: entity.myentity.collection
-  description: 'List Myentity entities'
-  parent: system.admin_structure
-  weight: 100
+# entity.myentity.collection:
+#   title: 'Myentity list'
+#   route_name: entity.myentity.collection
+#   description: 'List Myentity entities'
+#   parent: system.admin_structure
+#   weight: 100
 
 
 # Myentity type menu items definition

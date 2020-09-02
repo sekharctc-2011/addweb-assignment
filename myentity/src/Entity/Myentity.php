@@ -269,7 +269,7 @@ class Myentity extends EditorialContentEntityBase implements MyentityInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setRequired(TRUE);
 
-    $fields['description'] = BaseFieldDefinition::create('text_long')
+    $fields['description'] = BaseFieldDefinition::create('string_long')
       ->setLabel(t('Description'))
       ->setDescription(t('Description'))
       ->setRevisionable(TRUE)

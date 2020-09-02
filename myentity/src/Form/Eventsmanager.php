@@ -9,6 +9,7 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\node\Entity\Node;
 
 use Drupal\Core\Database\Database;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Class Eventsmanager.
@@ -42,21 +43,29 @@ class Eventsmanager extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('myentity.eventsmanager');
 
-    $db = Database::getConnection();
-
     $record = array();
 
     if ( isset($_GET['num']) ) {
-      $record = $db->select('myentity_field_data', 'm')
-          ->condition('id', $_GET['num'])
-          ->fields('m')
-          ->execute()
-          ->fetchAssoc();
+     
 
+      $path = '/myentity/form/myentity_table_view';
+      $url = Url::fromUserInput($path);
+      
+      $entity = \Drupal::entityTypeManager()->getStorage("myentity")->load($_GET['num']);
 
-    }
-    //$fdate = date('Y-m-d', $record['start_date']);
-    //$fdate = format_date($record['start_date'], 'custom', 'd/m/Y');
+      if(!is_null($entity)){
+        $event_title = $entity->event_title[0]->value;
+        $start_date =  date('Y-m-d', $entity->start_date[0]->value);
+        $end_date =    date('Y-m-d', $entity->end_date[0]->value);
+        $venue =       $entity->venue[0]->value;
+        $description = $entity->description[0]->value;
+      }else{
+        \Drupal::messenger()->addmessage(t('No record found having id- '.$_GET['num']));
+        
+        return new RedirectResponse(\Drupal::url('myentity.myentity_table_view'));
+      }    
+
+    }    
 
     $form['title'] = [
       '#type' => 'textfield',
@@ -65,21 +74,21 @@ class Eventsmanager extends ConfigFormBase {
       '#maxlength' => 64,
       '#size' => 64,
       '#required'=> TRUE,
-      '#default_value'=> (isset($record['event_title']) && isset($_GET['num'])) ? $record['event_title']:'',
+      '#default_value'=> (isset($event_title) && isset($_GET['num'])) ? $event_title:'',
     ];
     $form['start_date'] = [
       '#type' => 'date',
       '#title' => $this->t('Start Date'),
       '#description' => $this->t('Start date of the events'),
       '#required'=> TRUE,
-      '#default_value' => (isset($record['start_date']) && isset($_GET['num'])) ? date('Y-m-d', $record['start_date']):'',
+      '#default_value' => (isset($start_date) && isset($_GET['num'])) ? $start_date:'',
     ];
     $form['end_date'] = [
       '#type' => 'date',
       '#title' => $this->t('End Date'),
       '#description' => $this->t('End date of the events'),
       '#required'=> TRUE,
-      '#default_value' => (isset($record['end_date']) && isset($_GET['num'])) ? date('Y-m-d', $record['end_date']):'',
+      '#default_value' => (isset($end_date) && isset($_GET['num'])) ? $end_date:'',
     ];
     $form['venue'] = [
       '#type' => 'textfield',
@@ -88,7 +97,7 @@ class Eventsmanager extends ConfigFormBase {
       '#maxlength' => 64,
       '#size' => 64,
       '#required'=> TRUE,
-      '#default_value' => (isset($record['venue']) && isset($_GET['num'])) ? $record['venue']:'',
+      '#default_value' => (isset($venue) && isset($_GET['num'])) ? $venue:'',
     ];
     $form['description'] = [
       '#type' => 'textarea',
@@ -97,7 +106,7 @@ class Eventsmanager extends ConfigFormBase {
       '#maxlength' => 500,
       '#size' => 150,
       '#required'=> TRUE,
-      '#default_value' => (isset($record['description__value']) && isset($_GET['num'])) ? $record['description__value']:'',
+      '#default_value' => (isset($description) && isset($_GET['num'])) ? $description:'',
     ];
 
     return parent::buildForm($form, $form_state);
@@ -176,7 +185,8 @@ class Eventsmanager extends ConfigFormBase {
     //check & update
     if (isset($_GET['num'])) {
 
-      $path = '/my-entity-list';
+      //$path = '/my-entity-list';
+      $path = '/myentity/form/myentity_table_view';
       $url = Url::fromUserInput($path);
 
       $entity = \Drupal::entityTypeManager()->getStorage("myentity")->load($_GET['num']);
