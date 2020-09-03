@@ -25,12 +25,12 @@ myentity.eventsmanager:
   weight: 98
 
 #List my entity
-myentity.eventslist:
-  title: 'Events list'
-  description: 'Custom events manager list'
-  parent: system.admin_config_system
-  url: internal:/my-entity-list
-  weight: 99
+# myentity.eventslist:
+#   title: 'Events list'
+#   description: 'Custom events manager list'
+#   parent: system.admin_config_system
+#   url: internal:/my-entity-list
+#   weight: 99
 
 #List tableselect
 myentity.eventstable:
