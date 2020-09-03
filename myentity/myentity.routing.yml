@@ -28,6 +28,6 @@ myentity.myentity_table_view:
   path: '/myentity/form/myentity_table_view'
   defaults:
     _form: '\Drupal\myentity\Form\MyentityTableView'
-    _title: 'MyentityTableView'
+    _title: 'Myentity Table View'
   requirements:
     _permission: 'access administration pages'

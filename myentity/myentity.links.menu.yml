@@ -18,7 +18,7 @@ entity.myentity_type.collection:
 
 #Config form
 myentity.eventsmanager:
-  title: 'Events manager'
+  title: 'Custom Events manager'
   route_name: myentity.eventsmanager
   description: 'Custom events manager'
   parent: system.admin_config_system

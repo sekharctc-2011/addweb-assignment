@@ -9,7 +9,7 @@ use Drupal\Core\Url;
 use Drupal\Core\Render\Element;
 
 /**
- * Class DeleteForm.
+ * Class DeletemyEntity.
  *
  * @package Drupal\mydata\Form
  */
@@ -26,7 +26,7 @@ class DeletemyEntity extends ConfirmFormBase {
     return t('Do you want to delete %cid?', array('%cid' => $this->cid));
   }
  public function getCancelUrl() {
-    return new Url('myentity.eventsmanager');
+    return new Url('myentity.myentity_table_view');
 }
 public function getDescription() {
     return t('Only do this if you are sure!');
@@ -70,6 +70,6 @@ public function getDescription() {
 
 	  \Drupal::messenger()->addmessage(t('entity deleted.'));
 
-	  $form_state->setRedirect('myentity.eventsmanager');
+	  $form_state->setRedirect('myentity.myentity_table_view');
   }
 }
